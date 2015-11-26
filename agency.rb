@@ -35,14 +35,16 @@ class Agency
     sorted_females = @females.sort { |a,b| b.proficiency <=> a.proficiency}
     
     for i in 0..sorted_females.size-1
-      team = sorted_females[i], sorted_males[i]
-      @pairs[team] = calc_satisfaction(sorted_males[i], sorted_females[i])
-
+      sorted_males[i].satisfaction = calc_satisfaction ([sorted_males[i], sorted_females[i]])
+      sorted_fefmales[i].satisfaction = calc_satisfaction ([sorted_females[i], sorted_males[i]])
     end
   end
 
   def calc_satisfaction team
     if team[0].proficiency >= team[1].desired_proficiency and team[0].proficiency >= team[1].desired_proficiency then
+      return 0
+    else
+      #satisfaction = 
     end
   end
 
