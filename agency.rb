@@ -35,10 +35,17 @@ class Agency
     sorted_females = @females.sort { |a,b| b.proficiency <=> a.proficiency}
     
     for i in 0..sorted_females.size-1
-      @pairs[sorted_females[i]] = sorted_males[i]
+      @pairs[sorted_females[i], sorted_males[i]] = nil
+
+      #if sorted_males[i].proficiency >= sorted_females[i].desired_proficiency and sorted_females[i].proficiency >= sorted_males[i].desired_proficiency then
+
     end
   end
 
+  def calc_satisfaction
+  end
+
   def teams_to_s
+    @males.each do |person|
   end
 end
