@@ -3,12 +3,12 @@ require_relative './curler.rb'
 class Agency
   attr_reader :males, :females, :pairs
 
-  def initialize
+  def initialize men, women
     @males = Array.new
     @females = Array.new
 
-    file_males = File.open('men_curlers.txt')
-    file_females = File.open('women_curlers.txt')
+    file_males = File.open(men)
+    file_females = File.open(women)
 
     file_males.each do |line|
       @males << Curler.parse(line)
@@ -34,11 +34,11 @@ class Agency
     sorted_males = @males.sort { |a,b| b.proficiency <=> a.proficiency}
     sorted_females = @females.sort { |a,b| b.proficiency <=> a.proficiency}
     
-    for i in 0..sorted_males.size-1
+    for i in 0..sorted_females.size-1
+      @pairs[sorted_females[i]] = sorted_males[i]
     end
   end
-end
 
-obj = Agency.new
-obj.status
-obj.create_teams
+  def teams_to_s
+  end
+end
