@@ -4,7 +4,7 @@ class Curler
   attr_reader :name, :proficiency, :desired_proficiency
 
   def self.parse curler_string
-    values = country_string.scanf("%s %d %d")
+    values = curler_string.scanf("%s %d %d")
     new(*values)
   end
 
