@@ -15,4 +15,3 @@ class Curler
     @desired_proficiency = desired_proficiency
   end
 end
-
