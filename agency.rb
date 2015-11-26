@@ -69,21 +69,25 @@ class Agency
   def first_ascent_hill_climb
     #@pairs = @pairs
 
-    sorted_males = @males.sort { |a,b| b.proficiency <=> a.proficiency}
-    sorted_females = @females.sort { |a,b| b.proficiency <=> a.proficiency}
-
-    for i in 0..sorted_males.size-2
-      for j in i+1..sorted_males-1
+    for i in 0..@males.size-2
+      for j in i+1..@males.size-1
         old_fitness = calc_fitness
 
-        temp = sorted_males[i]
-        @sorted_males[i] = sorted_males[j]
-        @sorted_males[j] = temp
+        temp = @males[i]
+        @males[i] = @males[j]
+        @males[j] = temp
 
-        if(calc_fitness >= old_fitness) then
-          temp = sorted_males[i]
-          @sorted_males[i] = sorted_males[j]
-          @sorted_males[j] = temp
+        @males[i].satisfaction = calc_satisfaction(@males[i], @females[i])
+        @females[i].satisfaction = calc_satisfaction(@females[i], @males[i])
+
+        if(calc_fitness <= old_fitness) then
+          temp = @males[i]
+          @males[i] = @males[j]
+          @males[j] = temp
+          @males[i].satisfaction = calc_satisfaction(@males[i], @females[i])
+          @females[i].satisfaction = calc_satisfaction(@females[i], @males[i])
+        else
+          puts 'teste'
         end
       end
     end
