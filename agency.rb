@@ -35,23 +35,34 @@ class Agency
     sorted_females = @females.sort { |a,b| b.proficiency <=> a.proficiency}
     
     for i in 0..sorted_females.size-1
-      sorted_males[i].satisfaction = calc_satisfaction ([sorted_males[i], sorted_females[i]])
-      sorted_fefmales[i].satisfaction = calc_satisfaction ([sorted_females[i], sorted_males[i]])
+      @pairs[sorted_females[i]] = sorted_males[i]
+      sorted_males[i].satisfaction = calc_satisfaction(sorted_males[i], sorted_females[i])
+      sorted_females[i].satisfaction = calc_satisfaction(sorted_females[i], sorted_males[i])
     end
   end
 
-  def calc_satisfaction team
-    if team[0].proficiency >= team[1].desired_proficiency and team[0].proficiency >= team[1].desired_proficiency then
+  def calc_satisfaction player, teammate
+    if teammate.proficiency >= player.desired_proficiency then
       return 0
     else
-      #satisfaction = 
+      return (teammate.proficiency - player.desired_proficiency).to_f/2
     end
   end
 
   def teams_to_s
-    @pairs.each do |team, satisfaction| 
-      puts "#{team[0].name} #{team[1].name}"
-      puts satisfaction
+    @pairs.each do |female, male|
+      puts "(#{female.name}, #{male.name}) Satisfaction: #{female.satisfaction}"
+      puts "(#{male.name}, #{female.name}) Satisfaction: #{male.satisfaction}"
+    end
+  end
+
+  def each_curler
+    @females.each do |person|
+      yield person
+    end
+
+    @males.each do |person|
+      yield person
     end
   end
 end
