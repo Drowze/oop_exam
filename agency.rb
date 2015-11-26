@@ -67,9 +67,7 @@ class Agency
   end
 
   def first_ascent_hill_climb
-    #@pairs = @pairs
-
-    for i in 0..@males.size-2
+    for i in 0..@males.size-2 ## finding the best combinations
       for j in i+1..@males.size-1
         old_fitness = calc_fitness
 
@@ -86,19 +84,18 @@ class Agency
           @males[j] = temp
           @males[i].satisfaction = calc_satisfaction(@males[i], @females[i])
           @females[i].satisfaction = calc_satisfaction(@females[i], @males[i])
-        else
-          puts 'teste'
         end
       end
     end
-    puts calc_fitness
+
+    for i in 0..@females.size-1 ## recreating the teams
+      @pairs[@females[i]] = @males[i]
+    end
   end
 
   def calc_fitness
     ret = 0
-    each_curler do |person|
-      ret += person.satisfaction
-    end
+    each_curler { |person| ret += person.satisfaction}
     return ret
   end
 end

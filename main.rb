@@ -15,4 +15,7 @@ mixed_doubles_curling.each_curler do |person|
 end
 
 mixed_doubles_curling.calc_fitness
+
 mixed_doubles_curling.first_ascent_hill_climb
+puts "\nSatisfaction of each player after first ascent hill climbing:"
+mixed_doubles_curling.teams_to_s
