@@ -65,4 +65,23 @@ class Agency
       yield person
     end
   end
+
+  def first_ascent_hill_climb
+    pairs_copy = @pairs
+
+    sorted_males = @males.sort { |a,b| b.proficiency <=> a.proficiency}
+    sorted_females = @females.sort { |a,b| b.proficiency <=> a.proficiency}
+
+    pairs_copy.each do |female, male|
+      
+
+  end
+
+  def calculate_fitness
+    ret = 0
+    each_curler do |person|
+      ret += person.satisfaction
+    end
+    return ret
+  end
 end
