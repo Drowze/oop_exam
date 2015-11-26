@@ -14,4 +14,5 @@ mixed_doubles_curling.each_curler do |person|
   end
 end
 
-mixed_doubles_curling.calculate_fitness
+mixed_doubles_curling.calc_fitness
+mixed_doubles_curling.first_ascent_hill_climb

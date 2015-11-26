@@ -67,17 +67,30 @@ class Agency
   end
 
   def first_ascent_hill_climb
-    pairs_copy = @pairs
+    #@pairs = @pairs
 
     sorted_males = @males.sort { |a,b| b.proficiency <=> a.proficiency}
     sorted_females = @females.sort { |a,b| b.proficiency <=> a.proficiency}
 
-    pairs_copy.each do |female, male|
-      
+    for i in 0..sorted_males.size-2
+      for j in i+1..sorted_males-1
+        old_fitness = calc_fitness
 
+        temp = sorted_males[i]
+        @sorted_males[i] = sorted_males[j]
+        @sorted_males[j] = temp
+
+        if(calc_fitness >= old_fitness) then
+          temp = sorted_males[i]
+          @sorted_males[i] = sorted_males[j]
+          @sorted_males[j] = temp
+        end
+      end
+    end
+    puts calc_fitness
   end
 
-  def calculate_fitness
+  def calc_fitness
     ret = 0
     each_curler do |person|
       ret += person.satisfaction
